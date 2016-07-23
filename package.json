@@ -1,0 +1,19 @@
+{
+  "name": "angularFileUpload",
+  "version": "1.0.0",
+  "description": "angular file upload",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ahu",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.5.7",
+    "angular-file-upload": "^2.3.4",
+    "express": "^4.14.0",
+    "fs": "0.0.2",
+    "multiparty": "^4.1.2",
+    "util": "^0.10.3"
+  }
+}
