@@ -1,31 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>angular</title>
+	<title>file upload</title>
+	<link rel="stylesheet" type="text/css" href="./node_modules/angular-material/angular-material.css">
 	<script type="text/javascript" src='./node_modules/angular/angular.js'></script>
+	<script type="text/javascript" src='./node_modules/angular-aria/angular-aria.js'></script>
+	<script type="text/javascript" src='./node_modules/angular-animate/angular-animate.js'></script>
+	<script type="text/javascript" src='./node_modules/angular-material/angular-material.js'></script>
 	<script type="text/javascript" src='./node_modules/angular-file-upload/dist/angular-file-upload.min.js'></script>
-
 </head>
-<body>
-	<div ng-app='app'>
-		<div ng-controller='AppController'>
+<body ng-app='app'>
+	<div ng-controller='AppController' layout='row'>
+	  <div>
 			<input type="file" nv-file-select uploader='uploader' /><br/><br/>
-			<ul>
-				<li ng-repeat='item in uploader.queue'>
-					Name: <span ng-bind='item.file.name'></span><br>
-					<button ng-click='item.upload()'>upload</button>
-				</li>
-			</ul>
-		</div>
+	  </div>
+	  <div>
+			<h3>Uploaad queue</h3>
+			<p>Queue length: {{uploader.queue.length}}</p>
+			<table>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th ng-show='uploader.isHTML5'>Size</th>
+						<th ng-show='uploader.isHTML5'>Progress</th>
+						<th>Status</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat='item in uploader.queue'>
+					  <td>{{item.file.name}}</td>
+					  <td ng-show='uploader.isHTML5'>{{item.file.size/1024/1024|number:2}} MB</td>
+					  <td ng-show='uploader.isHTML5'>{{item.progress}}</td>
+					  <td>
+					    <span ng-show='item.isSuccess'>ok</span>
+					  </td>
+					  <td>
+					  	<button ng-click='item.upload()'>upload</button>
+					  </td>
+					</tr>
+				</tbody>
+			</table>
+	  </div>
 	</div>
-	<script type="text/javascript">
-		angular.module('app', ['angularFileUpload'])
-		.controller('AppController', function($scope, FileUploader){
-			$scope.uploader = new FileUploader({
-				url: '/upload',
-				method: 'post'
-			});
-		})
-	</script>
+	<script type="text/javascript" src='./controller.js'></script>
 </body>
 </html>
